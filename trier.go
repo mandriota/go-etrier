@@ -1,9 +1,12 @@
 package etrier
 
-import "runtime"
+import (
+	"runtime"
+	"sync"
+)
 
 var (
-	handlers = make(map[uintptr]func(err error))
+	handlers = sync.Map{}
 	defaultHandler = func(err error) {
 		println("error ignored: handler not defined")
 	}
@@ -16,7 +19,7 @@ func SetHandler(handler func(err error)) bool {
 	if !ok {
 		return false
 	}
-	handlers[runtime.FuncForPC(pc).Entry()] = handler
+	handlers.Store(runtime.FuncForPC(pc).Entry(), handler)
 	return true
 }
 
@@ -27,11 +30,11 @@ func GetHandler() func(err error) {
 			return defaultHandler
 		}
 
-		handler, ok := handlers[runtime.FuncForPC(pc).Entry()]
+		handler, ok := handlers.Load(runtime.FuncForPC(pc).Entry())
 		if !ok {
 			continue
 		}
-		return handler
+		return handler.(func(err error))
 	}
 }
 
