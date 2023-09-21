@@ -11,7 +11,7 @@ import (
 	"os"
 	"strconv"
 
-	etrier "github.com/mandriota/go-etrier"
+	"github.com/mandriota/go-etrier"
 )
 
 func main() {
