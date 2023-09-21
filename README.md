@@ -1,13 +1,16 @@
 # Go Etrier
 A minimalistic go error handling.
 
-## Example of usage
+## Usage Example
 ```go
 package main
 
 import (
+	"fmt"
 	"log"
+	"os"
 	"strconv"
+
 	etrier "github.com/mandriota/go-etrier"
 )
 
@@ -17,7 +20,7 @@ func main() {
 		l.Fatalln(err)
 	})
 	
-	fmt.Println(foo)
+	fmt.Println(foo())
 }
 
 func foo() int {
