@@ -1,5 +1,5 @@
 # Go Etrier
-A minimalistic go error handling.
+A minimalistic go error handling library.
 
 ## Usage Example
 ```go
