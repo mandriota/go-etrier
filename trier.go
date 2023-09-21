@@ -20,7 +20,7 @@ func SetHandler(handler func(err error)) bool {
 	return true
 }
 
-func getHandler() func(err error) {
+func GetHandler() func(err error) {
 	for i := 1; ; i++ {
 		pc, _, _, ok := runtime.Caller(i)
 		if !ok {
@@ -38,7 +38,7 @@ func getHandler() func(err error) {
 // Try - if err is not nil, calls handler.
 func Try(err error) {
 	if err != nil {
-		getHandler()(err)
+		GetHandler()(err)
 	}
 }
 
